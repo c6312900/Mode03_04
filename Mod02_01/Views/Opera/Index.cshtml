@@ -25,7 +25,8 @@
                 <th>@Html.DisplayNameFor(m=>m.OperaID)</th>
                 <th>@Html.DisplayNameFor(m=>m.Title)</th>
                 <th>@Html.DisplayNameFor(m=>m.Year)</th>
-                <th>@Html.DisplayNameFor(m=>m.Composer)</th>            
+                <th>@Html.DisplayNameFor(m=>m.Composer)</th>   
+                <th>Detail</th>         
             </tr>
             @foreach (var aa in Model)
             {
@@ -33,7 +34,8 @@
                     <th>@Html.DisplayFor(mi => aa.OperaID)</th>
                     <th>@Html.DisplayFor(mi => aa.Title)</th>
                     <th>@Html.DisplayFor(mi => aa.Year)</th>
-                    <th>@Html.DisplayFor(mi => aa.Composer)</th>  
+                    <th>@Html.DisplayFor(mi => aa.Composer)</th> 
+                    <th>@Html.ActionLink("Detail","Details", new { id=aa.OperaID})</th>  
                 </tr>
                
             }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 
 namespace Mod02_01.Controllers
 {
@@ -34,6 +35,40 @@ namespace Mod02_01.Controllers
 
             return View(context.Operas.ToList());
         }
+
+        //lab3-3
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            OperaContext context = new OperaContext();
+            Opera o = context.Operas.Find(id);
+            if (o == null)
+                return HttpNotFound();
+            return View(o);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+       [HttpPost]
+       public ActionResult Create(Opera opera)
+        {
+            if (ModelState.IsValid)
+            {
+                OperaContext contex = new OperaContext();
+                contex.Operas.Add(opera);
+                contex.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(opera);
+        }
+
 
     }
 }
