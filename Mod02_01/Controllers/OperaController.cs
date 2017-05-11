@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Net;
+using System.Data.Entity;
 
 namespace Mod02_01.Controllers
 {
@@ -63,6 +64,39 @@ namespace Mod02_01.Controllers
             {
                 OperaContext contex = new OperaContext();
                 contex.Operas.Add(opera);
+                contex.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(opera);
+        }
+
+        //GET: opera/edit/1
+        //GET:opera/edit?id=1
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            OperaContext context = new OperaContext();
+            Opera o = context.Operas.Find(id);
+            if (o == null)
+                return HttpNotFound();
+            return View(o);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Opera opera)
+        {
+            if (ModelState.IsValid)
+            {
+                OperaContext contex = new OperaContext();
+                contex.Entry(opera).State=EntityState.Modified;
+                //Opera o = contex.Operas.Find(opera.OperaID);
+                //o.Title = opera.Title;
+                //o.Year = opera.Year;
+                //o.Composer = opera.Composer;
                 contex.SaveChanges();
                 return RedirectToAction("Index");
             }
