@@ -27,7 +27,8 @@
                 <th>@Html.DisplayNameFor(m=>m.Year)</th>
                 <th>@Html.DisplayNameFor(m=>m.Composer)</th>   
                 <th>Detail</th>
-                <th>Edit1</th>         
+                <th>Edit1</th>
+                <th>Delete</th>         
             </tr>
             @foreach (var aa in Model)
             {
@@ -37,7 +38,8 @@
                     <th>@Html.DisplayFor(mi => aa.Year)</th>
                     <th>@Html.DisplayFor(mi => aa.Composer)</th> 
                     <th>@Html.ActionLink("Detail","Details", new { id=aa.OperaID})</th>  
-                    <th>@Html.ActionLink("To Edit", "Edit", new { id = aa.OperaID })</th>  
+                    <th>@Html.ActionLink("Edit", "Edit", new { id = aa.OperaID })</th>  
+                    <th>@Html.ActionLink("Delete", "Delete", new { id = aa.OperaID }, new {onclick= "return confirm('delete ok?');"})</th> 
                 </tr>
                
             }

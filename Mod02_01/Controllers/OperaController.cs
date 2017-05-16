@@ -7,9 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using System.Data.Entity;
+using System.Diagnostics;
+
 
 namespace Mod02_01.Controllers
 {
+   // [LoginActionFilter]
     public class OperaController : Controller
     {
         // GET: Opera
@@ -30,8 +33,10 @@ namespace Mod02_01.Controllers
 
         // Lab2_4
         // GET: Opera/Index
+      //  [LoginActionFilter]
         public ActionResult Index()
         {
+            Debug.WriteLine("Opera.Index");
             OperaContext context = new OperaContext();
 
             return View(context.Operas.ToList());
@@ -104,5 +109,47 @@ namespace Mod02_01.Controllers
         }
 
 
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    OperaContext context = new OperaContext();
+        //    Opera o = context.Operas.Find(id);
+        //    if (o == null)
+        //        return HttpNotFound();
+        //    return View(o);
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    OperaContext context = new OperaContext();
+        //    Opera o = context.Operas.Find(id);
+        //    context.Operas.Remove(o);
+        //    context.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            OperaContext context = new OperaContext();
+            Opera o = context.Operas.Find(id);
+            if (o == null)
+                return HttpNotFound();
+             context.Operas.Remove(o);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+       
     }
 }

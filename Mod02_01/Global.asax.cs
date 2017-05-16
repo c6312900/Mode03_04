@@ -17,6 +17,8 @@ namespace Mod02_01
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
            Database.SetInitializer<OperaContext>(new OperasInitializer());
+
+            GlobalFilters.Filters.Add(new LoginActionFilter());
         }
     }
 }
